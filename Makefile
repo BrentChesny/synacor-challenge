@@ -1,4 +1,5 @@
 CFILES := $(shell find src -name "*.c")
+HFILES := $(shell find src -name "*.h") 
 
 OBJFILES := $(CFILES:src/%.c=%)
 OFILES := $(OBJFILES:%=obj/%.o)
@@ -15,7 +16,7 @@ $(BINFILE): $(OFILES)
 	if [ ! -d `dirname $@` ]; then mkdir -p `dirname $@`; fi
 	$(CC) -o $@ $(OFILES)
 
-obj/%.o: src/%.c
+obj/%.o: src/%.c $(HFILES)
 	if [ ! -d `dirname $@` ]; then mkdir -p `dirname $@`; fi
 	$(CC) -o $@ -c $< $(CFLAGS)
 
