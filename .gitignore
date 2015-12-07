@@ -31,3 +31,6 @@ bin
 
 # Debug files
 *.dSYM/
+
+# Other
+.DS_Store
