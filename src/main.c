@@ -2,30 +2,7 @@
 #include <stdlib.h>
 
 #include "synacor_vm.h"
-
-int load_binary(synacor_vm* vm, char* binary_name)
-{
-	size_t read;
-	int offset;
-	FILE* binary;
-
-	binary = fopen(binary_name, "rb");
-	if (!binary)
-	{
-		printf("Unable to open binary!\n");
-		return -1;
-	}
-
-	offset = 0;
-	do {
-		read = fread(vm->memory + offset, sizeof(uint16_t), CHUNK_SIZE, binary);
-		offset += read;
-	} while(read == CHUNK_SIZE);
-
-	fclose(binary);	
-
-	return 0;
-}
+#include "synacor_memory.h"
 
 
 int main(int argc, char* argv[])
@@ -38,9 +15,9 @@ int main(int argc, char* argv[])
 
 	synacor_vm* vm = synacor_vm_init();
 
-	if (load_binary(vm, argv[1]) < 0)
+	if (synacor_memory_load_binary(vm, argv[1]) < 0)
 	{
-		printf("Unable to load binary into VM!\n");
+		printf("Error: Unable to load binary into VM!\n");
 		return 1;
 	}
 

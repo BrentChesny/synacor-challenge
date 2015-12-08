@@ -3,6 +3,8 @@
 
 #include <stdint.h>
 
+#include "synacor_vm.h"
+
 #define MAX_OP 21
 
 /**
@@ -35,6 +37,209 @@
  * Lookup table for the number of arguments for each opcode
  */
 extern uint8_t synacor_op_args[];
+
+/**
+ * Table with function pointers to the op implementations
+ */
+extern int (*synacor_ops[]) (synacor_vm* vm, uint8_t argc, uint16_t* argv);
+
+/**
+ * Implementation of the halt op
+ * @param  vm   The VM to operate on
+ * @param  argc The number of arguments for this op
+ * @param  argv The values of the arguments for this op
+ * @return      Status code 0 if succesfully executed, non-zero otherwise
+ */
+int synacor_op_halt(synacor_vm* vm, uint8_t argc, uint16_t* argv);
+
+/**
+ * Implementation of the set op
+ * @param  vm   The VM to operate on
+ * @param  argc The number of arguments for this op
+ * @param  argv The values of the arguments for this op
+ * @return      Status code 0 if succesfully executed, non-zero otherwise
+ */
+int synacor_op_set(synacor_vm* vm, uint8_t argc, uint16_t* argv);
+
+/**
+ * Implementation of the push op
+ * @param  vm   The VM to operate on
+ * @param  argc The number of arguments for this op
+ * @param  argv The values of the arguments for this op
+ * @return      Status code 0 if succesfully executed, non-zero otherwise
+ */
+int synacor_op_push(synacor_vm* vm, uint8_t argc, uint16_t* argv);
+
+/**
+ * Implementation of the pop op
+ * @param  vm   The VM to operate on
+ * @param  argc The number of arguments for this op
+ * @param  argv The values of the arguments for this op
+ * @return      Status code 0 if succesfully executed, non-zero otherwise
+ */
+int synacor_op_pop(synacor_vm* vm, uint8_t argc, uint16_t* argv);
+
+/**
+ * Implementation of the eq op
+ * @param  vm   The VM to operate on
+ * @param  argc The number of arguments for this op
+ * @param  argv The values of the arguments for this op
+ * @return      Status code 0 if succesfully executed, non-zero otherwise
+ */
+int synacor_op_eq(synacor_vm* vm, uint8_t argc, uint16_t* argv);
+
+/**
+ * Implementation of the gt op
+ * @param  vm   The VM to operate on
+ * @param  argc The number of arguments for this op
+ * @param  argv The values of the arguments for this op
+ * @return      Status code 0 if succesfully executed, non-zero otherwise
+ */
+int synacor_op_gt(synacor_vm* vm, uint8_t argc, uint16_t* argv);
+
+/**
+ * Implementation of the jmp op
+ * @param  vm   The VM to operate on
+ * @param  argc The number of arguments for this op
+ * @param  argv The values of the arguments for this op
+ * @return      Status code 0 if succesfully executed, non-zero otherwise
+ */
+int synacor_op_jmp(synacor_vm* vm, uint8_t argc, uint16_t* argv);
+
+/**
+ * Implementation of the jt op
+ * @param  vm   The VM to operate on
+ * @param  argc The number of arguments for this op
+ * @param  argv The values of the arguments for this op
+ * @return      Status code 0 if succesfully executed, non-zero otherwise
+ */
+int synacor_op_jt(synacor_vm* vm, uint8_t argc, uint16_t* argv);
+
+/**
+ * Implementation of the jf op
+ * @param  vm   The VM to operate on
+ * @param  argc The number of arguments for this op
+ * @param  argv The values of the arguments for this op
+ * @return      Status code 0 if succesfully executed, non-zero otherwise
+ */
+int synacor_op_jf(synacor_vm* vm, uint8_t argc, uint16_t* argv);
+
+/**
+ * Implementation of the add op
+ * @param  vm   The VM to operate on
+ * @param  argc The number of arguments for this op
+ * @param  argv The values of the arguments for this op
+ * @return      Status code 0 if succesfully executed, non-zero otherwise
+ */
+int synacor_op_add(synacor_vm* vm, uint8_t argc, uint16_t* argv);
+
+/**
+ * Implementation of the mult op
+ * @param  vm   The VM to operate on
+ * @param  argc The number of arguments for this op
+ * @param  argv The values of the arguments for this op
+ * @return      Status code 0 if succesfully executed, non-zero otherwise
+ */
+int synacor_op_mult(synacor_vm* vm, uint8_t argc, uint16_t* argv);
+
+/**
+ * Implementation of the mod op
+ * @param  vm   The VM to operate on
+ * @param  argc The number of arguments for this op
+ * @param  argv The values of the arguments for this op
+ * @return      Status code 0 if succesfully executed, non-zero otherwise
+ */
+int synacor_op_mod(synacor_vm* vm, uint8_t argc, uint16_t* argv);
+
+/**
+ * Implementation of the and op
+ * @param  vm   The VM to operate on
+ * @param  argc The number of arguments for this op
+ * @param  argv The values of the arguments for this op
+ * @return      Status code 0 if succesfully executed, non-zero otherwise
+ */
+int synacor_op_and(synacor_vm* vm, uint8_t argc, uint16_t* argv);
+
+/**
+ * Implementation of the or op
+ * @param  vm   The VM to operate on
+ * @param  argc The number of arguments for this op
+ * @param  argv The values of the arguments for this op
+ * @return      Status code 0 if succesfully executed, non-zero otherwise
+ */
+int synacor_op_or(synacor_vm* vm, uint8_t argc, uint16_t* argv);
+
+/**
+ * Implementation of the not op
+ * @param  vm   The VM to operate on
+ * @param  argc The number of arguments for this op
+ * @param  argv The values of the arguments for this op
+ * @return      Status code 0 if succesfully executed, non-zero otherwise
+ */
+int synacor_op_not(synacor_vm* vm, uint8_t argc, uint16_t* argv);
+
+/**
+ * Implementation of the rmem op
+ * @param  vm   The VM to operate on
+ * @param  argc The number of arguments for this op
+ * @param  argv The values of the arguments for this op
+ * @return      Status code 0 if succesfully executed, non-zero otherwise
+ */
+int synacor_op_rmem(synacor_vm* vm, uint8_t argc, uint16_t* argv);
+
+/**
+ * Implementation of the wmem op
+ * @param  vm   The VM to operate on
+ * @param  argc The number of arguments for this op
+ * @param  argv The values of the arguments for this op
+ * @return      Status code 0 if succesfully executed, non-zero otherwise
+ */
+int synacor_op_wmem(synacor_vm* vm, uint8_t argc, uint16_t* argv);
+
+/**
+ * Implementation of the call op
+ * @param  vm   The VM to operate on
+ * @param  argc The number of arguments for this op
+ * @param  argv The values of the arguments for this op
+ * @return      Status code 0 if succesfully executed, non-zero otherwise
+ */
+int synacor_op_call(synacor_vm* vm, uint8_t argc, uint16_t* argv);
+
+/**
+ * Implementation of the ret op
+ * @param  vm   The VM to operate on
+ * @param  argc The number of arguments for this op
+ * @param  argv The values of the arguments for this op
+ * @return      Status code 0 if succesfully executed, non-zero otherwise
+ */
+int synacor_op_ret(synacor_vm* vm, uint8_t argc, uint16_t* argv);
+
+/**
+ * Implementation of the out op
+ * @param  vm   The VM to operate on
+ * @param  argc The number of arguments for this op
+ * @param  argv The values of the arguments for this op
+ * @return      Status code 0 if succesfully executed, non-zero otherwise
+ */
+int synacor_op_out(synacor_vm* vm, uint8_t argc, uint16_t* argv);
+
+/**
+ * Implementation of the in op
+ * @param  vm   The VM to operate on
+ * @param  argc The number of arguments for this op
+ * @param  argv The values of the arguments for this op
+ * @return      Status code 0 if succesfully executed, non-zero otherwise
+ */
+int synacor_op_in(synacor_vm* vm, uint8_t argc, uint16_t* argv);
+
+/**
+ * Implementation of the noop op
+ * @param  vm   The VM to operate on
+ * @param  argc The number of arguments for this op
+ * @param  argv The values of the arguments for this op
+ * @return      Status code 0 if succesfully executed, non-zero otherwise
+ */
+int synacor_op_noop(synacor_vm* vm, uint8_t argc, uint16_t* argv);
 
 
 

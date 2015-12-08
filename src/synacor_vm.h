@@ -3,17 +3,17 @@
 
 #include <stdint.h>
 
-#define ADDRESS_SPACE_SIZE 32767
-#define N_REGISTERS 8
-#define CHUNK_SIZE 1024
+#define SYNACOR_ADDRESS_SPACE_SIZE 32767
+#define SYNACOR_N_REGISTERS 8
+#define SYNACOR_CHUNK_SIZE 1024
 
 /**
  * Type definition of the synacor VM struct
  */
 typedef struct synacor_vm
 {
-	uint16_t memory[ADDRESS_SPACE_SIZE];
-	uint16_t registers[N_REGISTERS];
+	uint16_t memory[SYNACOR_ADDRESS_SPACE_SIZE];
+	uint16_t registers[SYNACOR_N_REGISTERS];
 	uint16_t pc;
 	// TODO add stack to vm
 	int halted;
@@ -44,5 +44,14 @@ int synacor_vm_step(synacor_vm* vm);
  * @param vm A synacor VM instance
  */
 void synacor_vm_kill(synacor_vm* vm);
+
+/**
+ * Read the next instruction and it's arguments from memory 
+ * @param  vm 	A synacor VM instance
+ * @param  argc Out parameter for the argument count
+ * @param  argv Out parameter for the argument values
+ * @return      Returns the opcode of the next instruction, -1 if invalid instruction
+ */
+uint16_t synacor_vm_read_op(synacor_vm* vm, uint8_t* argc, uint16_t* argv);
 
 #endif /* end of include guard: SYNACOR_VM_H__ */
