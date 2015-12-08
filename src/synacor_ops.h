@@ -1,3 +1,8 @@
+/**
+ * Definition of the operatiosn for the synacor VM.
+ * 
+ * @author Brent Chesny
+ */
 #ifndef SYNACOR_OPS_H__
 #define SYNACOR_OPS_H__
 

@@ -1,3 +1,8 @@
+/**
+ * Implementation of the synacor VM
+ * 
+ * @author Brent Chesny
+ */
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -7,6 +12,8 @@
 synacor_vm* synacor_vm_init()
 {
 	synacor_vm* vm = (synacor_vm*) malloc(sizeof(synacor_vm));
+
+	vm->stack = (synacor_stack*) malloc(sizeof(synacor_stack));
 
 	return vm;
 }
@@ -44,6 +51,20 @@ void synacor_vm_kill(synacor_vm* vm)
 {
 	printf("Killing virtual machine...\n");
 	vm->halted = 1;
+}
+
+void synacor_vm_destroy(synacor_vm* vm)
+{
+	if (vm != NULL) {
+		if (vm->stack != NULL)
+		{
+			free(vm->stack);
+			vm->stack = NULL;
+		}
+
+		free(vm);
+		vm = NULL;
+	}
 }
 
 uint16_t synacor_vm_read_op(synacor_vm* vm, uint8_t* argc, uint16_t* argv)

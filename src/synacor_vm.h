@@ -1,7 +1,14 @@
+/**
+ * Definition of the synacor VM.
+ * 
+ * @author Brent Chesny
+ */
 #ifndef SYNACOR_VM_H__
 #define SYNACOR_VM_H__
 
 #include <stdint.h>
+
+#include "synacor_stack.h"
 
 #define SYNACOR_ADDRESS_SPACE_SIZE 32767
 #define SYNACOR_N_REGISTERS 8
@@ -15,7 +22,7 @@ typedef struct synacor_vm
 	uint16_t memory[SYNACOR_ADDRESS_SPACE_SIZE];
 	uint16_t registers[SYNACOR_N_REGISTERS];
 	uint16_t pc;
-	// TODO add stack to vm
+	synacor_stack* stack;
 	int halted;
 } synacor_vm;
 
@@ -44,6 +51,12 @@ int synacor_vm_step(synacor_vm* vm);
  * @param vm A synacor VM instance
  */
 void synacor_vm_kill(synacor_vm* vm);
+
+/**
+ * Destroys the given VM and frees the memory
+ * @param vm A synacor VM instance
+ */
+void synacor_vm_destroy(synacor_vm* vm);
 
 /**
  * Read the next instruction and it's arguments from memory 

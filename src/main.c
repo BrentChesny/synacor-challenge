@@ -1,3 +1,9 @@
+/**
+ * Main entry point for the synacor VM.
+ * 
+ * @author Brent Chesny
+ */
+
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -22,6 +28,8 @@ int main(int argc, char* argv[])
 	}
 
 	int exit_status = synacor_vm_run(vm);
+
+	synacor_vm_destroy(vm);
 
 	return exit_status;
 }

@@ -1,3 +1,8 @@
+/**
+ * Definition of the synacor memory operations
+ * 
+ * @author Brent Chesny
+ */
 #ifndef SYNACOR_MEMORY_H__
 #define SYNACOR_MEMORY_H__
 
@@ -20,5 +25,12 @@ int synacor_memory_load_binary(synacor_vm* vm, char* binary_name);
  * @return       The mapped value
  */
 uint16_t synacor_memory_map_value(synacor_vm* vm, uint16_t value);
+
+/**
+ * Maps a 16-bit value to either its register index
+ * @param  value The value to map
+ * @return       The index of the register the given value maps to
+ */
+uint16_t synacor_memory_map_register(uint16_t value);
 
 #endif /* end of include guard: SYNACOR_MEMORY_H__ */

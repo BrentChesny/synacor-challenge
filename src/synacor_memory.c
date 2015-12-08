@@ -1,3 +1,8 @@
+/**
+ * Implementation of the synacor memory operations
+ * 
+ * @author Brent Chesny
+ */
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -41,6 +46,19 @@ uint16_t synacor_memory_map_value(synacor_vm* vm, uint16_t value)
 	else 
 	{
 		printf("Warning: Invalid memory value!\n");
+		return 0;
+	}
+}
+
+uint16_t synacor_memory_map_register(uint16_t value)
+{
+	if (value > SYNACOR_MAX_LITERAL_VALUE && value <= SYNACOR_MAX_LITERAL_VALUE + SYNACOR_N_REGISTERS) 
+	{
+		return value - SYNACOR_MAX_LITERAL_VALUE - 1;
+	} 
+	else 
+	{
+		printf("Warning: Invalid register index!\n");
 		return 0;
 	}
 }
