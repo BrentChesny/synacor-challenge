@@ -33,4 +33,10 @@ uint16_t synacor_memory_map_value(synacor_vm* vm, uint16_t value);
  */
 uint16_t synacor_memory_map_register(uint16_t value);
 
+/**
+ * Dumps the disassembled memory of given VM to file
+ * @param vm A synacor VM instance
+ */
+void synacor_memory_dump(synacor_vm* vm);
+
 #endif /* end of include guard: SYNACOR_MEMORY_H__ */

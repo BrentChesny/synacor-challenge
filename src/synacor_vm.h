@@ -22,8 +22,12 @@ typedef struct synacor_vm
 	uint16_t memory[SYNACOR_ADDRESS_SPACE_SIZE];
 	uint16_t registers[SYNACOR_N_REGISTERS];
 	uint16_t pc;
+	uint32_t size;
 	synacor_stack* stack;
 	int halted;
+
+	/* Flags */
+	int dump;
 } synacor_vm;
 
 /**
@@ -66,5 +70,12 @@ void synacor_vm_destroy(synacor_vm* vm);
  * @return      Returns the opcode of the next instruction, -1 if invalid instruction
  */
 uint16_t synacor_vm_read_op(synacor_vm* vm, uint8_t* argc, uint16_t* argv);
+
+/**
+ * Set flags on the vm that have been passed in via commandline arguments
+ * @param vm    A synacor VM instance
+ * @param flags The flags passed via the commandline
+ */
+void synacor_vm_set_flags(synacor_vm* vm, char* flags);
 
 #endif /* end of include guard: SYNACOR_VM_H__ */

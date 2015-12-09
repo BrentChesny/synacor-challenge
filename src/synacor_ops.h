@@ -44,6 +44,11 @@
 extern uint8_t synacor_op_args[];
 
 /**
+ * Lookup table for the names for each opcode
+ */
+extern const char* synacor_op_names[];
+
+/**
  * Table with function pointers to the op implementations
  */
 extern int (*synacor_ops[]) (synacor_vm* vm, uint8_t argc, uint16_t* argv);

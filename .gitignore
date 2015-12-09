@@ -35,3 +35,4 @@ bin
 # Other
 .DS_Store
 hexdump
+dump.s

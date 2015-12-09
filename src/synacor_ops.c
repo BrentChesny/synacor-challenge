@@ -17,6 +17,13 @@ uint8_t synacor_op_args[] =	{
 	0, 1, 1, 0 			// ret, out, in, noop
 };
 
+const char* synacor_op_names[] =	{
+	"halt", "set", "push", "pop", "eq", "gt",
+	"jmp", "jt", "jf", "add", "mult", "mod",
+	"and", "or", "not", "rmem", "wmem", "call",
+	"ret", "out", "in", "noop"
+};
+
 int (*synacor_ops[]) (synacor_vm* vm, uint8_t argc, uint16_t* argv) = {
 	synacor_op_halt,
 	synacor_op_set,
@@ -53,7 +60,7 @@ int synacor_op_halt(synacor_vm* vm, uint8_t argc, uint16_t* argv)
 }
 
 int synacor_op_set(synacor_vm* vm, uint8_t argc, uint16_t* argv) {
-	UNUSED(vm);	UNUSED(argc); UNUSED(argv);
+	UNUSED(argc);
 
 	uint16_t a = synacor_memory_map_register(argv[0]);
 	uint16_t b = synacor_memory_map_value(vm, argv[1]);

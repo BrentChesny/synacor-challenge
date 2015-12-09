@@ -5,9 +5,12 @@
  */
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+#include <ctype.h>
 
 #include "synacor_vm.h"
 #include "synacor_ops.h"
+#include "synacor_memory.h"
 
 synacor_vm* synacor_vm_init()
 {
@@ -21,6 +24,9 @@ synacor_vm* synacor_vm_init()
 int synacor_vm_run(synacor_vm* vm)
 {
 	int status;
+
+	if (vm->dump) 
+		synacor_memory_dump(vm);
 
 	while(!vm->halted) {
 		status = synacor_vm_step(vm);
@@ -83,3 +89,9 @@ uint16_t synacor_vm_read_op(synacor_vm* vm, uint8_t* argc, uint16_t* argv)
 
 	return opcode;
 }
+
+void synacor_vm_set_flags(synacor_vm* vm, char* flags)
+{
+	vm->dump = (!strchr(flags, 'd')) ? 0 : 1;
+}
+
