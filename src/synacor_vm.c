@@ -12,6 +12,29 @@
 #include "synacor_ops.h"
 #include "synacor_memory.h"
 
+/* Private functions */
+
+int synacor_vm_at_breakpoint(synacor_vm* vm)
+{
+	for (int i = 0; i < vm->n_breakpoints; ++i)
+	{
+		if (vm->pc == vm->breakpoints[i])
+			return 1;
+	}
+
+	return 0;
+}
+
+int synacor_vm_break(synacor_vm* vm)
+{
+	// printf("\e[1;1H\e[2J");
+	printf("Encountered breakpoint at address: %u\n", vm->pc);
+
+	return getchar();
+}
+
+/* Public functions */
+
 synacor_vm* synacor_vm_init()
 {
 	synacor_vm* vm = (synacor_vm*) malloc(sizeof(synacor_vm));
@@ -37,6 +60,9 @@ int synacor_vm_run(synacor_vm* vm)
 
 int synacor_vm_step(synacor_vm* vm)
 {
+	if (synacor_vm_at_breakpoint(vm))
+		synacor_vm_break(vm);
+
 	uint8_t argc;
 	uint16_t argv[3];
 	uint16_t opcode = synacor_vm_read_op(vm, &argc, argv);
@@ -90,8 +116,14 @@ uint16_t synacor_vm_read_op(synacor_vm* vm, uint8_t* argc, uint16_t* argv)
 	return opcode;
 }
 
-void synacor_vm_set_flags(synacor_vm* vm, char* flags)
+void synacor_vm_print_state(synacor_vm* vm)
 {
-	vm->dump = (!strchr(flags, 'd')) ? 0 : 1;
+	fprintf(stderr, "[PC: %5u]", vm->pc);
+	for (int i = 0; i < SYNACOR_N_REGISTERS; ++i)
+	{
+		fprintf(stderr, "[$%d: %5u]  ", i, vm->registers[i]);
+	}
+	fprintf(stderr, "\n");
 }
+
 

@@ -28,6 +28,10 @@ typedef struct synacor_vm
 
 	/* Flags */
 	int dump;
+
+	/* Breakpoints */
+	uint16_t breakpoints[SYNACOR_N_REGISTERS];
+	uint8_t n_breakpoints;
 } synacor_vm;
 
 /**
@@ -72,10 +76,10 @@ void synacor_vm_destroy(synacor_vm* vm);
 uint16_t synacor_vm_read_op(synacor_vm* vm, uint8_t* argc, uint16_t* argv);
 
 /**
- * Set flags on the vm that have been passed in via commandline arguments
- * @param vm    A synacor VM instance
- * @param flags The flags passed via the commandline
+ * Prints the current state of the VM
+ * @param vm A synacor VM
  */
-void synacor_vm_set_flags(synacor_vm* vm, char* flags);
+void synacor_vm_print_state(synacor_vm* vm);
+
 
 #endif /* end of include guard: SYNACOR_VM_H__ */
