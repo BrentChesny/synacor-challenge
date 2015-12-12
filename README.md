@@ -1,5 +1,5 @@
 # Synacor Challenge
-My implementation of the VM for the [Synacor Challenge](https://challenge.synacor.com).
+My implementation of the [Synacor Challenge](https://challenge.synacor.com).
 
 Completed on December 12, 2015.
 
